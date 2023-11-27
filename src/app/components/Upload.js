@@ -2,9 +2,12 @@
 import axios from 'axios'
 import {UploadBTN,Spinner }from './Icons'
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 const Upload = () => {
     const [loading,setLoading] = useState(false);
+
+    const router = useRouter();
 
 
     const uploadVideo = async (event) => {
@@ -17,7 +20,10 @@ const Upload = () => {
                 file,
             })
             setLoading(false);
-            console.log(res.data);
+            
+            const newName= res.data.newName;
+
+            router.push(`/video/${newName}`)
         }
 
 
