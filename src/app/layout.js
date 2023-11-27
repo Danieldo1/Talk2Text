@@ -15,7 +15,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={poppins.className+' bg-gradient-to-b from-violet-200 to-pink-200 text-slate-900 min-h-screen'}>
+      <body className={poppins.className+' bg-gradient-to-br from-purple-900 via-indigo-600 to-transparent  text-slate-100 min-h-screen'}>
       <main className="p-4 max-w-7xl mx-auto">
         <Nav />
         {children}
