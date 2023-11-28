@@ -81,18 +81,53 @@ export function UploadBTN(){
 export function Spinner(){
   return (
     <svg
-    className="animate-spin text-white h-8 w-8"
-    
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    stroke="#ffffff"
-  >
-    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-    <g id="SVGRepo_iconCarrier">
-      <path d="M2 12C2 6.47715 6.47715 2 12 2V5C8.13401 5 5 8.13401 5 12H2Z" fill="#ffffff"></path>
-    </g>
-  </svg>
+        className="w-8 h-8"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        stroke="#ffffff"
+      >
+        <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+        <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
+        <g id="SVGRepo_iconCarrier">
+          <path d="M2 12C2 6.47715 6.47715 2 12 2V5C8.13401 5 5 8.13401 5 12H2Z" fill="#ffffff"></path>
+        </g>
+      </svg>
   )
+}
+
+export function ApplyIcon(){
+ return (
+  <svg
+        className="w-8 h-8"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+        <g
+          id="SVGRepo_tracerCarrier"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          stroke="#CCCCCC"
+          strokeWidth="0.144"
+        ></g>
+        <g id="SVGRepo_iconCarrier">
+          <path
+            d="M4 12.9L7.14286 16.5L15 7.5"
+            stroke="#ffffff"
+            strokeWidth="1.392"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          ></path>
+          <path
+            d="M20 7.5625L11.4283 16.5625L11 16"
+            stroke="#ffffff"
+            strokeWidth="1.392"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          ></path>
+        </g>
+      </svg> 
+ ) 
 }
