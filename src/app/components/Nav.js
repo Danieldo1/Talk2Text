@@ -4,7 +4,7 @@ const Nav = () => {
   return (
     <header className="flex justify-between mb-8 pb-8 w-full">
     <Link href={"/"} className="flex gap-1 justify-center items-center">
-      <span className='text-2xl font-black tracking-widest'>Talk<span className='text-5xl rotate-[90deg] w-[30px] '>2</span>Text</span>
+      <span className='text-2xl font-black tracking-widest rotate-[-4deg]'>Talk<span className='text-5xl w-[30px] '>2</span>Text</span>
     </Link>
   
     <nav className="flex gap-6 items-center text-white ">
