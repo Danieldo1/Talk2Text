@@ -3,6 +3,7 @@
 
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import { cleanTranscription } from '@/utils/utils'
 
 const VideoPage = ({params}) => {
   const [isTranscribing, setIsTranscribing] = useState(false);
@@ -29,7 +30,8 @@ getTranscription()
         setTimeout(getTranscription,3000)
       } else {
         setIsTranscribing(false)
-        setTranscriptionResponse(transcription.results.items)
+       
+        setTranscriptionResponse(cleanTranscription(transcription.results.items))
       }
 
   
@@ -39,11 +41,11 @@ getTranscription()
 
   return (
     <div>
-    {filename}
     <div> is transcribing: {JSON.stringify(isTranscribing)}</div>
     {transcriptionResponse.length >0 && transcriptionResponse.map(i => (
-      <div>{i.start_time} -{i.end_time} - {i.alternatives[0].content}
-      <span></span>
+      <div >
+      <span className='text-white/50 mr-2'>{i.start_time} -{i.end_time} </span>
+      <span> {i.content}</span>
   </div>
     ))}
     </div>
