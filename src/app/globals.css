@@ -2,3 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+input[type="color"]::-webkit-color-swatch {
+    border-radius: 10%;
+  
+}
+
+input[type="color"]::-moz-color-color-swatch {
+    border-radius: 10%;
+    
+}
+
+input[type="color"]{
+    background-color: transparent;
+}

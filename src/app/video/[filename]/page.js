@@ -36,7 +36,6 @@ getTranscription()
       const status = res.data?.status
       const transcription = res.data?.resultFile
 
-      console.log(transcription)
 
       if(status === undefined){
         setIsTranscribing(true)
