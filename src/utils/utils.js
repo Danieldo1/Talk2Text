@@ -21,3 +21,22 @@ export const cleanTranscription = (items) => {
    
            })
 }
+
+const getTime = (time) => {
+    const d = new Date(parseFloat(time) * 1000)
+    return d.toISOString().slice(11,23).replace('.',',')
+}
+
+export const convertSrt = (items) => {
+    let str = ''
+    let count = 1
+    items.forEach((element,key) => {
+        str+=count + '\n'
+        const {start_time,end_time}= element
+        str += getTime(start_time) + ' --> ' + getTime(end_time) + '\n'
+        str +=element.content + '\n'
+        str +='\n'
+        count ++
+    })
+    return str
+}
