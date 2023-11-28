@@ -30,8 +30,12 @@ const getTime = (time) => {
 export const convertSrt = (items) => {
     let str = ''
     let count = 1
-    items.forEach((element,key) => {
+
+    items.filter(i => !!i).forEach((element,key) => {
         str+=count + '\n'
+        if(!element?.start_time){
+
+        }
         const {start_time,end_time}= element
         str += getTime(start_time) + ' --> ' + getTime(end_time) + '\n'
         str +=element.content + '\n'

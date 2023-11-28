@@ -3,17 +3,23 @@ import { ApplyIcon } from '@/app/components/Icons'
 import { FFmpeg } from '@ffmpeg/ffmpeg';
 import { toBlobURL,fetchFile } from '@ffmpeg/util';
 import { convertSrt } from '@/utils/utils'
+import Slider from './Slider';
+import FontSizeSlider from './FontSlider';
 import roboto from './../../fonts/Roboto-Regular.ttf';
 import robotoBold from './../../fonts/Roboto-Bold.ttf';
+import { useRouter } from 'next/navigation';
 
 const Video = ({filename,transcriptionResponse}) => {
     const [loaded, setLoaded] = useState(false);
     const [primary, setPrimary] = useState('#FFFFFF');
     const [outline, setOutline] = useState('#000000');
     const [progress, setProgress] = useState(1);
+    const [marginV, setMarginV] = useState(20);
+    const [fontSize, setFontSize] = useState(20);
     const ffmpegRef = useRef(new FFmpeg());
     const videoRef = useRef(null);
     const videoURL = `https://talk-to-text.s3.amazonaws.com/${filename}`
+    const router = useRouter();
 
     useEffect(() => {
         videoRef.current.src = videoURL;
@@ -57,18 +63,25 @@ const Video = ({filename,transcriptionResponse}) => {
                const [h,m,s] = time.split(':')
                const total = h* 3600 + m * 60 + s
                const videoProgress = total / duration
-               console.log(total)
                setProgress(videoProgress)
             }
 
-           
+            if(duration > 57){
+                alert('Video too long')
+                router.back()
+                throw new Error('Video too long')
+                
+            }
+            
+            
+            
         });
         await ffmpeg.exec([
             '-i',
          filename,
-        //  '-to', '00:00:02',
+         '-to', '00:00:05',
          '-preset', 'ultrafast',
-         '-vf', `subtitles=sbt.srt:fontsdir=/tmp:force_style='Fontname=Roboto Bold,FontSize=30,MarginV=70,PrimaryColour=${rgbToAss(primary)},OutlineColour=${rgbToAss(outline)}'`,           'output.mp4']);
+         '-vf', `subtitles=sbt.srt:fontsdir=/tmp:force_style='Fontname=Roboto Bold,FontSize=${fontSize},MarginV=${marginV},PrimaryColour=${rgbToAss(primary)},OutlineColour=${rgbToAss(outline)}'`,           'output.mp4']);
         const data = await ffmpeg.readFile('output.mp4');
         videoRef.current.src =
             URL.createObjectURL(new Blob([data.buffer], {type: 'video/mp4'}));
@@ -85,7 +98,7 @@ const Video = ({filename,transcriptionResponse}) => {
                 <h3 className='text-white text-3xl' >{parseInt(progress*100)}%</h3>
                     <div className='bg-white mx-10 rounded-lg overflow-hidden' >
                         <div className='bg-black h-4' style={{width: `${progress*100}%`}}>
-
+                       
                         </div>
                     </div>
                 </div>
@@ -102,16 +115,38 @@ const Video = ({filename,transcriptionResponse}) => {
     <div className='text-center'>
         <button 
         onClick={transcode}
-        className="bg-blue-500 text-white rounded-xl text-xl px-4 py-2 mt-8 hover:bg-blue-800 inline-flex items-center gap-2 cursor-pointer">
+        className="bg-blue-500 text-white rounded-xl w-full text-center justify-center text-xl px-4 py-2 mt-8 hover:bg-blue-800 inline-flex items-center gap-2 cursor-pointer">
             <ApplyIcon />
         Apply Captions
         </button>
-        <div className='p-5 rounded-lg inline-block gap-4 bg-blue-500  mt-4'>
-        Text Color
-        <input type='color' value={primary} onChange={(e) => setPrimary(e.target.value)} className='ml-8 rounded-md'  />
+        <div className='py-5 rounded-lg w-full inline-block gap-4 bg-blue-500  mt-4'>
+        <span className='flex justify-center md:inline-block'>Text Color</span>
+        <input type='color' value={primary} onChange={(e) => setPrimary(e.target.value)} className='md:ml-8 rounded-md'  />
        <br />
-       Outline Color
-        <input type='color' value={outline} onChange={(e) => setOutline(e.target.value)} className='mt-2 ml-2 rounded-md' />
+       <span className='flex justify-center md:inline-block'>Outline Color</span>
+        <input type='color' value={outline} onChange={(e) => setOutline(e.target.value)} className='md:ml-2 rounded-md' />
+           
+            <div className='md:inline-flex p-3 justify-center'>
+               <span className='flex justify-center md:inline-block'>Text Position</span>
+            <Slider
+            value={marginV}
+            min={0}
+            max={100}
+            onChange={(value) => setMarginV(value)}
+            />
+     
+        <span >{marginV}%</span>
+            </div>
+            <div className='md:inline-flex p-3 justify-center'>
+               <span className='flex md:inline-block  justify-center mr-7'>Font Size</span>
+            <FontSizeSlider
+        min={10}
+        max={60}
+        value={fontSize}
+        onChange={(value) => setFontSize(value)}
+        />
+        <span >{fontSize}px</span>
+       </div>
         </div>
     </div>
     </>

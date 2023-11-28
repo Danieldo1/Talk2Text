@@ -3,7 +3,7 @@ import HeadersText from '../components/Headers'
 
 const Pricing = () => {
   return (
-    <div>
+    <div className="bg-white p-10 rounded-xl border border-gray-600">
         <HeadersText h1Text="Simple Pricing" h2Text="Talk 2 Text is free to use" />
 
         <div className=" min-h-[70%] py-2 flex items-center justify-center">

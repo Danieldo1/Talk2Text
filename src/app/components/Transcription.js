@@ -2,9 +2,13 @@ import React from 'react'
 import InputItem from './InputItem'
 
 const Transcription = ({transcriptionResponse,setTranscriptionResponse}) => {
+
+
   const handleApply = (index,prop,e) => {
     const newItems = [...transcriptionResponse]
-    newItems[index][prop] = e.target.value
+    const item = {...newItems[index]}
+    item[prop] = e.target.value
+    newItems[index] = item
     setTranscriptionResponse(newItems)
   }
 

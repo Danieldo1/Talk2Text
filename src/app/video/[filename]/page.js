@@ -7,7 +7,8 @@ import { cleanTranscription } from '@/utils/utils'
 import Video from '@/app/components/Video'
 import Transcription from '@/app/components/Transcription'
 import classNames from 'classnames';
-import { EditBTN } from '@/app/components/Icons'
+import { EditBTN,Spinner } from '@/app/components/Icons'
+
 
 const VideoPage = ({params}) => {
   const [isTranscribing, setIsTranscribing] = useState(false);
@@ -52,11 +53,11 @@ getTranscription()
 
 
   if(isTranscribing){
-    return <div>Transcribing...</div>
+    return <div className='text-center items-center justify-center flex'><Spinner /> Transcribing...</div>
   }
 
   if(fetching){
-    return <div>Fetching...</div>
+    return <div className='text-center items-center  justify-center flex'><Spinner /> Fetching...</div>
   }
 
  
@@ -74,7 +75,7 @@ getTranscription()
         <Video filename={filename} transcriptionResponse={transcriptionResponse} />
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="bg-blue-500 text-white inline-flex justify-center text-center rounded-xl text-xl px-4 py-2 mt-8 hover:bg-blue-800 items-center gap-2 cursor-pointer"
+          className="bg-blue-500 text-white inline-flex justify-center w-full text-center rounded-xl text-xl px-4 py-2 mt-8 hover:bg-blue-800 items-center gap-2 cursor-pointer"
         >
           <EditBTN />
           {isOpen ? 'Save Changes' : 'Edit Captions'}
