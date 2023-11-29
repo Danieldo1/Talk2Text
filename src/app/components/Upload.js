@@ -18,22 +18,42 @@ const Upload = () => {
     const upload = async (event) => {
         event.preventDefault();
         const files = event.target?.files;
-        
-        // if(files.length >0){
-        //   const file = files[0];
-        //   setLoading(true);
-        //   const res = await axios.postForm('/api/upload',{
-        //     file,
-        //   })
-        //   setLoading(false);
-          
-        
-        //   const newName= res.data.newName;
-          
-        //     router.push(`/video/${newName}`)
-        // }
+        const file = event.target.files[0]
+        let videoIsTooLong = false;
 
+        if(file){
+          const video = document.createElement('video');
+          video.preload = 'metadata';
+          video.onloadedmetadata = function() {
+              URL.revokeObjectURL(video.src);
+              if(video.duration > 58){
+                  alert("Video is more than 60 seconds long!");
+                  videoIsTooLong = true
+                  return;
+              }
+            }
+           
 
+            video.src = URL.createObjectURL(file);
+            await new Promise(r => video.onloadedmetadata = r);
+            if(videoIsTooLong) return;
+
+          }
+       
+
+          if(files.length >0){
+            const file = files[0];
+            setLoading(true);
+            const res = await axios.postForm('/api/upload',{
+              file,
+            })
+            setLoading(false);
+            
+          
+            const newName= res.data.newName;
+            
+              router.push(`/video/${newName}`)
+          }
 
       }
 
